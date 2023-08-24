@@ -9,23 +9,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class TestAutomation {
     public static void main(String[] args) {
         System.out.println("Bienvenido a Selenium Web Driver");
-        // The path to the  driver executable must be set by the webdriver.chrome.driver system property
+        // Configura web driver
         System.setProperty("webdriver.chrome.driver","src/main/resources/browser/chromedriver");
         ChromeDriver driver = new ChromeDriver();
-        driver.get("http://the-internet.herokuapp.com/login");
+        driver.get("http://the-internet.herokuapp.com/login"); // pagina web que se desea hacer las pruebas
         // Maximizar pantalla de navegador
         driver.manage().window().maximize();
-        // Credenciales
+        // Credenciales, seran los datos de entrada
         String username = "tomsmith";
         String password = "SuperSecretPassword!";
         // Buscamos en navegador por id: #username #password, Localizamos por ID
         WebElement usernameInput = driver.findElement(By.id("username"));
         WebElement passwordInput = driver.findElement(By.id("password"));
-        WebElement loginButton = driver.findElement(By.className("radius"));
-                // new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector("input.submit[name = 'login']"))).click();
-        // Hacemos el login
+        // WebElement loginButton = driver.findElement(By.className("radius")); // obtenemos por class, no recomendado
+        // WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login\"]/button")); // obtenemos por xPath, lo copiamos desde chrome.
+        WebElement loginButton = driver.findElement(By.cssSelector(".radius")); // obtenemos por css
+        // Inyectar los valores a la interface
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
+        // Inyectamos el evento click
         loginButton.click();
     }
 }
